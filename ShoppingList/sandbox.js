@@ -89,7 +89,7 @@ logo.addEventListener('click', (e) => {
 // keydown -> event continously triggers as you keep pressing the key down
 // keyup -> event occurs when you release the key
 
-const inputElement = document.querySelector('#item-form')
+const inputElement = document.querySelector('#item-input')
 
 inputElement.addEventListener('keypress', e => {
     console.log(e.key) // gives you the key you presed
@@ -107,3 +107,87 @@ inputElement.addEventListener('keypress', e => {
     })
 
 
+// Input event
+// it can be used with any input event like form input, list input, checkbox input
+
+
+    inputElement.addEventListener('input', e => {
+        const heading = document.querySelector('h1')
+
+        heading.textContent = e.target.value // target gives the input element, but value gives the actual value typed in
+    })
+
+// in case of checkbox input event, e.target.checked gives true is the check box is checked
+
+// Focus and blur event : same as input but used to emphasis on an element and de-emphasis on blurr
+
+inputElement.addEventListener('focus', () => {
+    console.log("input is focused")
+    inputElement.style.outlineStyle = 'solid'
+    inputElement.style.outlineWidth = '2px'
+    inputElement.style.outlineColor = 'green'
+
+})
+
+inputElement.addEventListener('blur', () => {
+    console.log("input is focused")
+    inputElement.style.outlineColor = 'white'
+
+})
+
+
+// Form Submission
+
+const form = document.querySelector("#item-form")
+
+form.addEventListener('submit', e => {
+    e.preventDefault()
+    const value = document.querySelector("#item-input").value
+
+    if(value.trim() === '')
+    alert("Please provide an input value")
+
+    console.log(value)
+
+    // another way of getting form input values is through form data object
+    const formData = new FormData(form)
+
+    // provide the input name
+    console.log(formData.get('item'))
+
+})
+
+// Event Bubbling
+// When we have the same listener event on a html element and the same event on any of its ancestor, when we trigger the event of the child, all its ancestor events will also be triggered
+// to prevent this we can use an event fucntion : e.stopPropagation() in the child event function
+
+
+// const button = document.querySelector('form button');
+// const div = document.querySelector('form div:nth-child(2)');
+// const form = document.querySelector('form');
+
+// button.addEventListener('click', (e) => {
+//   alert('Button was clicked');
+//   e.stopPropagation();
+// });
+
+// div.addEventListener('click', () => {
+//   alert('Div was clicked');
+// });
+
+// form.addEventListener('click', () => {
+//   alert('Form was clicked');
+// });
+
+// document.body.addEventListener('click', () => {
+//   alert('Body was clicked');
+// });
+
+// Event Delegation
+// we can place event listener on ul instead of each list item
+
+const list = document.querySelector('ul')
+
+list.addEventListener('click', e => {
+    console.log(e.target)
+})
